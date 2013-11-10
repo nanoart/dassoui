@@ -1,4 +1,4 @@
-VERTX_VERSION="2.0.0-final"
+VERTX_VERSION="2.0.2-final"
 PATH="${OPENSHIFT_DATA_DIR}vert.x-${VERTX_VERSION}/bin:$PATH"
 SERVER_FILE="java/com/nanoart/vertxapp/AppWebServer.java"
 EXAMPLE_DIR="src/main"

@@ -16,7 +16,11 @@ public class AppWebServer extends Verticle {
   private static final String webroot = "webapp/";
 
   public void start() {
+		final String host = System.getenv("OPENSHIFT_DIY_IP");
+        final String port = System.getenv("OPENSHIFT_DIY_PORT");
+  
     vertx.createHttpServer().requestHandler(new Handler<HttpServerRequest>() {
+
       public void handle(final HttpServerRequest req) {
         if (req.path().equals("/")) {
           req.response().sendFile(webroot + "index.html");
@@ -44,6 +48,6 @@ public class AppWebServer extends Verticle {
           req.response().sendFile(webroot + req.path());
         }
       }
-    }).listen(8080);
+    }).listen(Integer.valueOf(port), host);
   }
 }
