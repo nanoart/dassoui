@@ -1,0 +1,16 @@
+#!/bin/bash
+
+cd $OPENSHIFT_REPO_DIR
+
+. ".openshift/config.example"
+
+cd $EXAMPLE_DIR
+
+echo "Starting Vert.x application!"
+
+if [[ -e $SERVER_FILE ]]; then
+        nohup bash -c "exec 'vertx' 'run' '${SERVER_FILE}' -repo vert-x.github.io &> ${OPENSHIFT_DIY_LOG_DIR}vert.x.log" &
+        echo $! > ../.openshift/application.pid
+else
+        echo "Server file does not exists."
+fi

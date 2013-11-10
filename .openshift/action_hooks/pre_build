@@ -1,0 +1,22 @@
+#!/bin/bash
+
+cd $OPENSHIFT_REPO_DIR
+
+. ".openshift/config.example"
+
+cd $OPENSHIFT_DATA_DIR
+
+# Install Vert.x if needed
+
+if [[ -d vert.x-${VERTX_VERSION} ]]; then
+        echo "Vert.x ${VERTX_VERSION} already installed."
+else
+        for version in vert.x-*; do 
+                echo "Removing $version"
+                rm -rf $version 
+        done
+
+        echo "Installing Vert.x $VERTX_VERSION"
+
+        tar -xf ${OPENSHIFT_REPO_DIR}vert.x-${VERTX_VERSION}.tar.gz vert.x-${VERTX_VERSION}
+fi

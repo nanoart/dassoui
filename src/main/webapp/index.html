@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" ng-app="ssoApp">
+<head>
+    <meta charset="utf-8">
+    <title>My AngularJS App</title>
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css"/>
+
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular/angular-resource.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/directives.js"></script>
+
+    <script type="text/javascript" src="lib/jquery/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(".dropdown-toggle").dropdown();
+        });
+    </script>
+
+</head>
+<body>
+
+<h4>Client Template Attempt for DualShield SSO</h4>
+
+
+
+
+
+<!--
+
+<div ng-controller="FaceSenseCtrl">
+    <ds-face-sense />
+</div>
+
+<div ng-controller="FlashPassCtrl">
+    <ds-flash-pass />
+</div>
+
+<div ng-controller="KeyStrokeCtrl">
+    <ds-key-stroke />
+</div>
+
+The Authenticator - Certificate
+<div ng-controller="CertificateCtrl">
+    <ds-cert-auth></ds-cert-auth>
+</div>
+
+
+
+-->
+
+
+<br>
+
+<form class="well" ng-submit="submit()" ng-controller="AuthStepsCtrl">
+    <input type="submit" id="submit" value="Submit" class="btn"/> <br>
+
+    <div class="form-group row" ng-repeat="authstep in authsteps">
+        {{ authstep.name }}. {{ authstep.serial }} <br>
+
+        <div ng-controller="AuthenticatorsHTTPCtrl">
+            Authenticator:
+            <select ng-model="authenticator" ng-options="authenticator.name for authenticator in authenticators"></select>
+            <div ng-switch on="authenticator.name">
+                <div ng-switch-when="Certificate">
+                    <ds-channels-list></ds-channels-list>
+                </div>
+                <div ng-switch-default>One Time Password:<input type="text" ng-model="authstep.otp" placeholder="Enter OTP here"></div>
+            </div>
+        </div>
+
+        <br>
+    </div>
+
+    <pre>list={{list}}</pre>
+</form>
+
+
+<!--
+<div ng-view></div>
+
+<!-- In production use:
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+-->
+
+
+
+
+</body>
+</html>

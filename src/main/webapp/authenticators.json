@@ -1,0 +1,20 @@
+[{
+	"name": "One Time Password",
+	"IID": "dark"
+},
+{
+	"name": "On Demand Password",
+	"IID": "light"
+},
+{
+	"name": "Certificate",
+	"IID": "dark"
+},
+{
+	"name": "Static Password",
+	"IID": "dark"
+},
+{
+	"name": "Fingerprint",
+	"IID": "light"
+}]
