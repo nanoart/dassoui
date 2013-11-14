@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>My AngularJS App</title>
+    <link rel="shortcut icon" href="img/favicon.ico" />
     <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/app.css"/>
 
@@ -37,17 +38,19 @@
     <div ng-view></div>
     <hr />
 
-    <pre>$location.path() = {{$location.path()}}</pre>
-    <pre>$route.current.templateUrl = {{$route.current.templateUrl}}</pre>
-    <pre>$route.current.params = {{$route.current.params}}</pre>
-    <pre>$route.current.scope.name = {{$route.current.scope.name}}</pre>
-    <pre>$routeParams = {{$routeParams}}</pre>
 </div>
 
 
 
 
 <!--
+
+    <pre>$location.path() = {{$location.path()}}</pre>
+    <pre>$route.current.templateUrl = {{$route.current.templateUrl}}</pre>
+    <pre>$route.current.params = {{$route.current.params}}</pre>
+    <pre>$route.current.scope.name = {{$route.current.scope.name}}</pre>
+    <pre>$routeParams = {{$routeParams}}</pre>
+
 <div ng-controller="GridScreenCtrl">
     <ds-grid-screen />
 </div>

@@ -51,27 +51,40 @@ The Authenticator - Certificate
 </form>
 
 -->
+<div id="container">
+<form class="niceform" ng-submit="submit()" ng-controller="AuthWizardCtrl">
+    <fieldset>
 
-<div id="wrapper">
-<form class="well" ng-submit="submit()" ng-controller="AuthWizardCtrl">
-    <input type="submit" id="submit" value="{{submitText}}" class="btn"/> <br>
-
-
-    <b>Step {{ currentstep+1 }} </b>  <br>
-
-        Authenticator:
-        <select ng-model="authenticator" ng-options="authenticator.name for authenticator in authenticators"></select>
+    <legend>Step {{ currentstep+1 }} </legend>
+        <dl>
+            <dt><label for="otp">Authenticator:</label></dt>
+            <dd><select ng-model="authenticator" ng-options="authenticator.name for authenticator in authenticators"></select></dd>
+        </dl>
         <div ng-switch on="authenticator.name">
             <div ng-switch-when="Certificate">
                 <ds-channels-list></ds-channels-list>
             </div>
-            <div ng-switch-default>One Time Password:<input type="text" ng-model="authstep.otp" placeholder="Enter OTP here"></div>
+            <div ng-switch-default>
+                <dl>
+                    <dt><label for="otp">One Time Password:</label></dt>
+                    <div class="NFTextCenter">
+                    <dd><input type="text" ng-model="authstep.otp" class="NFText" placeholder="Enter OTP here" name="otp" id="otp" size="32" maxlength="128" /></dd>
+                    </div>
+                </dl>
+            </div>
         </div>
 
 
     <br>
 
-
+<!--
     <pre>list={{list}}</pre>
+-->
+    </fieldset>
+
+    <fieldset class="action">
+        <input type="submit" name="submit" id="submit" value="{{submitText}}" class="NFButton"/>
+    </fieldset>
+
 </form>
 </div>
