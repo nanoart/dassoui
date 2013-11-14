@@ -1,0 +1,54 @@
+<!--
+<div ng-controller="GridScreenCtrl">
+    <ds-grid-screen />
+</div>
+
+<div ng-controller="FaceSenseCtrl">
+    <ds-face-sense />
+</div>
+
+<div ng-controller="FlashPassCtrl">
+    <ds-flash-pass />
+</div>
+
+<div ng-controller="KeyStrokeCtrl">
+    <ds-key-stroke />
+</div>
+
+The Authenticator - Certificate
+<div ng-controller="CertificateCtrl">
+    <ds-cert-auth></ds-cert-auth>
+</div>
+
+
+
+
+
+
+<br>
+-->
+<div id="wrapper">
+<form class="well" ng-submit="submit()" ng-controller="AuthWizardCtrl">
+    <input type="submit" id="submit" value="Submit" class="btn"/> <br>
+
+    <div class="form-group row" ng-repeat="authenticators in logonsteps">
+        <b>Step </b> {{ $index + 1 }} <br>
+
+        <div>
+            Authenticator:
+            <select ng-model="logonsteps[$index][0]" ng-options="authenticator.name for authenticator in authenticators"></select>
+            <div ng-switch on="authenticator.name">
+                <div ng-switch-when="Certificate">
+                    <ds-channels-list></ds-channels-list>
+                </div>
+                <div ng-switch-default>One Time Password:<input type="text"  placeholder="Enter OTP here"></div>
+            </div>
+        </div>
+
+        <br>
+    </div>
+
+    <pre>list={{list}}</pre>
+</form>
+</div>
+

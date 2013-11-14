@@ -1,4 +1,21 @@
-var ssoModule = angular.module('ssoApp', []);
+var ssoModule = angular.module('ssoApp', ['ngRoute']);
+
+
+function MainCntl($scope, $route, $routeParams, $location) {
+    $scope.$route = $route;
+    $scope.$location = $location;
+    $scope.$routeParams = $routeParams;
+}
+
+function BookCntl($scope, $routeParams) {
+    $scope.name = "BookCntl";
+    $scope.params = $routeParams;
+}
+
+function ChapterCntl($scope, $routeParams) {
+    $scope.name = "ChapterCntl";
+    $scope.params = $routeParams;
+}
 
 function AuthStepsCtrl($scope,$http) {
     $scope.authsteps = [
@@ -28,12 +45,92 @@ function AuthStepsCtrl($scope,$http) {
 
 };
 
+
+
 function CertificateCtrl($scope,$http) {
 
     $scope.fingerprints = "54325923e8c36bd82e97354c42de80e33b585b8e";
     $scope.browseruseragent = navigator.userAgent;
 
 };
+
+
+ssoModule.config(function($routeProvider, $locationProvider) {
+    $routeProvider.when('/allinone', {
+        templateUrl: 'allinone.html',
+        controller: BookCntl
+/*
+        resolve: {
+            // I will cause a 1 second delay
+            delay: function($q, $timeout) {
+                var delay = $q.defer();
+                $timeout(delay.resolve, 1000);
+                return delay.promise;
+            }
+        }
+*/
+    });
+    $routeProvider.when('/wizard', {
+        templateUrl: 'wizard.html',
+        controller: ChapterCntl
+    });
+
+    // configure html5 to get links working on jsfiddle
+    $locationProvider.html5Mode(true);
+});
+
+
+
+function AuthWizardCtrl($scope,$http) {
+    "use strict";
+    $scope.currentstep = 0;
+    $scope.submitText = 'Continue';
+
+    $scope.url = 'logonprecedure.json';
+    $scope.authenticators = [];
+
+    $scope.fetchLogonPrecedure = function() {
+        $http.get($scope.url).then(function(result){
+//            console.log('HELLO! ' + result.data);
+            $scope.logonsteps = result.data;
+            $scope.authenticators = $scope.logonsteps[$scope.currentstep];
+            $scope.authenticator = $scope.authenticators[0];
+        });
+    }
+
+    $scope.fetchLogonPrecedure();
+
+
+    $scope.list = [];
+    $scope.text = 'hello';
+    $scope.submit = function() {
+
+        $scope.currentstep += 1;
+        $scope.authenticators = $scope.logonsteps[$scope.currentstep];
+        $scope.authenticator = $scope.authenticators[0];
+
+        if($scope.currentstep == $scope.logonsteps.length-1)
+        {
+            $scope.submitText = 'Finish';
+        }
+        this.list = [];
+        $.each(this.authsteps,function(index, value)
+        {
+            $scope.list.push(value.otp);
+        });
+
+        //let us also post to server
+        $http.post("/doauth", $scope.list).success(function(data)
+        {
+            alert(data);
+
+        });
+    }
+
+
+};
+
+
 
 ssoModule.controller('FaceSenseCtrl', function ($scope, $http) {
     $scope.sessionid = "A3B97923EBD2B8A4FAF84806B0A68603";
@@ -85,6 +182,25 @@ ssoModule.controller('AuthenticatorsHTTPCtrl', function($scope, $http) {
 });
 
 
+ssoModule.controller('GridScreenCtrl', function($scope, $http) {
+    "use strict";
+
+    $scope.url = 'gridscreen.json';
+/*
+    $scope.gridscreen = {};
+    $scope.fetchGridData = function() {
+        //this asynch is too late.
+        $http.get('gridscreen.json').then(function(result){
+//            console.log('HELLO! ' + result.data);
+            $scope.gridscreen = result.data;
+        });
+    }
+
+    $scope.fetchGridData();
+*/
+});
+
+
 /* Directives */
 
 ssoModule.directive('appVersion', ['version', function(version) {
@@ -93,6 +209,65 @@ ssoModule.directive('appVersion', ['version', function(version) {
     };
   }]);
 
+
+ssoModule.directive('dsGridScreen',['$http','$interpolate', function($http, $interpolate){
+
+    var getHeader = function(col)
+    {
+        var finalHeader = '<tr style="background-color:#778899"><td style="text-align: center; padding: 0px;"> </td>';
+        for(var i = 0; i < col; i++)
+        {
+            finalHeader += '<td style="text-align: center; padding: 0px;">' + String.fromCharCode(65+i) + '</td>';
+        }
+        finalHeader += '<td style="text-align: center; padding: 0px;"> </td></tr>';
+        return finalHeader;
+    }
+
+    var getTemplate = function(gridscreen)
+    {
+        var finalDOM = '<table class="grid" cellspacing="0px">'
+        //draw the header
+        finalDOM += getHeader(gridscreen.col);
+
+        var cellTemplate = '<td style="text-align: center; padding: 0px; cursor: pointer;" class="grid-content" id="grid-{{col}}-{{row}}" original-gbcolor="">{{cell}}</td>';
+        var getCellExp = $interpolate(cellTemplate);
+        for(var j = 0; j < gridscreen.row; j++)
+        {
+            finalDOM += (j%2)?'<tr style="background-color:#a9a9a9">': '<tr style="background-color:#d3d3d3">';
+            finalDOM += '<td style="text-align: center; padding: 0px; background-color:#778899;">';
+            finalDOM += j + '</td>';
+            for(var i = 0; i < gridscreen.col; i++)
+            {
+                var strCell = getCellExp({row: j, col:String.fromCharCode(65+i), cell: gridscreen.cell[j*gridscreen.col+i]});
+                finalDOM += strCell;
+            }
+            finalDOM += '<td style="text-align: center; padding: 0px; background-color:#778899;">';
+            finalDOM += j + '</td></tr>';
+        }
+        //draw the footer
+        finalDOM += getHeader(gridscreen.col);
+
+        finalDOM += '</table>';
+        return finalDOM;
+
+    }
+
+    var linker = function(scope, iElement, iAttrs)
+    {
+        $http.get(scope.url).success(function(gridscreen){
+            var finalDOM = getTemplate(gridscreen);
+            iElement.html(finalDOM);
+//                iElement.replaceWith($compile(tplContent)(scope));
+        })
+    }
+
+    return {
+        restrict: 'E',
+        replace:true,
+        link: linker
+    };
+
+}]);
 
 ssoModule.directive('dsFaceSense',['$http','$templateCache','$interpolate', function($http, $templateCache, $interpolate){
 
@@ -112,7 +287,6 @@ ssoModule.directive('dsFaceSense',['$http','$templateCache','$interpolate', func
     };
 
 }]);
-
 
 ssoModule.directive('dsFlashPass',['$http','$templateCache','$interpolate', function($http, $templateCache, $interpolate){
 

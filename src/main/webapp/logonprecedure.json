@@ -1,0 +1,23 @@
+[
+[{
+	"name": "Static Password",
+	"code": 1
+}],
+[{
+	"name": "One Time Password",
+	"code": 2
+},
+{
+	"name": "On Demand Password",
+	"code": 3
+}],
+[
+{
+	"name": "Certificate",
+	"code": 4
+},
+{
+	"name": "Fingerprint",
+	"code": 5
+}]
+]

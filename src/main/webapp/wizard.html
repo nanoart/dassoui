@@ -1,0 +1,77 @@
+<!--
+<div ng-controller="GridScreenCtrl">
+    <ds-grid-screen />
+</div>
+
+<div ng-controller="FaceSenseCtrl">
+    <ds-face-sense />
+</div>
+
+<div ng-controller="FlashPassCtrl">
+    <ds-flash-pass />
+</div>
+
+<div ng-controller="KeyStrokeCtrl">
+    <ds-key-stroke />
+</div>
+
+The Authenticator - Certificate
+<div ng-controller="CertificateCtrl">
+    <ds-cert-auth></ds-cert-auth>
+</div>
+
+
+
+
+
+
+<br>
+
+<form class="well" ng-submit="submit()" ng-controller="AuthStepsCtrl">
+    <input type="submit" id="submit" value="Submit" class="btn"/> <br>
+
+    <div class="form-group row" ng-repeat="authstep in authsteps">
+        {{ authstep.name }}. {{ authstep.serial }} <br>
+
+        <div ng-controller="AuthenticatorsHTTPCtrl">
+            Authenticator:
+            <select ng-model="authenticator" ng-options="authenticator.name for authenticator in authenticators"></select>
+            <div ng-switch on="authenticator.name">
+                <div ng-switch-when="Certificate">
+                    <ds-channels-list></ds-channels-list>
+                </div>
+                <div ng-switch-default>One Time Password:<input type="text" ng-model="authstep.otp" placeholder="Enter OTP here"></div>
+            </div>
+        </div>
+
+        <br>
+    </div>
+
+    <pre>list={{list}}</pre>
+</form>
+
+-->
+
+<div id="wrapper">
+<form class="well" ng-submit="submit()" ng-controller="AuthWizardCtrl">
+    <input type="submit" id="submit" value="{{submitText}}" class="btn"/> <br>
+
+
+    <b>Step {{ currentstep+1 }} </b>  <br>
+
+        Authenticator:
+        <select ng-model="authenticator" ng-options="authenticator.name for authenticator in authenticators"></select>
+        <div ng-switch on="authenticator.name">
+            <div ng-switch-when="Certificate">
+                <ds-channels-list></ds-channels-list>
+            </div>
+            <div ng-switch-default>One Time Password:<input type="text" ng-model="authstep.otp" placeholder="Enter OTP here"></div>
+        </div>
+
+
+    <br>
+
+
+    <pre>list={{list}}</pre>
+</form>
+</div>
