@@ -105,7 +105,9 @@ function AuthWizardCtrl($scope,$http) {
     $scope.text = 'hello';
     $scope.submit = function() {
 
-        $scope.currentstep += 1;
+        if($scope.currentstep < $scope.logonsteps.length-1)
+            $scope.currentstep += 1;
+
         $scope.authenticators = $scope.logonsteps[$scope.currentstep];
         $scope.authenticator = $scope.authenticators[0];
 
