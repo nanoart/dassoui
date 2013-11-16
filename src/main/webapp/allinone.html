@@ -36,7 +36,7 @@ The Authenticator - Certificate
         <div>
             <dl>
             <dt><label for="otp">Authenticator:</label></dt>
-                <dd><select ng-model="logonsteps[$index][0]" ng-options="authenticator.name for authenticator in authenticators"></select></dd>
+                <dd><select ng-model="logonsteps[$index][0]" ng-disabled="authenticators.length==1" ng-options="authenticator.name for authenticator in authenticators"></select></dd>
             </dl>
             <div ng-switch on="authenticator.name">
                 <div ng-switch-when="Certificate">

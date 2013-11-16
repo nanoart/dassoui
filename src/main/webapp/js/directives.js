@@ -88,6 +88,15 @@ function AuthWizardCtrl($scope,$http) {
 
     $scope.url = 'logonprecedure.json';
     $scope.authenticators = [];
+	
+	$scope.declareCredentials = function() {
+		//will be using the credentials collected and sent back to server
+		$scope.allcredentials = new Array();
+		for(var i = 0; i < $scope.logonsteps.length; i++)
+		{
+			$scope.allcredentials[i] = new Array($scope.logonsteps[i].length)
+		}
+	}
 
     $scope.fetchLogonPrecedure = function() {
         $http.get($scope.url).then(function(result){
@@ -95,6 +104,8 @@ function AuthWizardCtrl($scope,$http) {
             $scope.logonsteps = result.data;
             $scope.authenticators = $scope.logonsteps[$scope.currentstep];
             $scope.authenticator = $scope.authenticators[0];
+			
+			$scope.declareCredentials();
         });
     }
 
