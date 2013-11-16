@@ -57,7 +57,7 @@ The Authenticator - Certificate
 
     <legend>Step {{ currentstep+1 }} </legend>
         <dl>
-            <dt><label for="otp">Authenticator:</label></dt>
+            <dt><label class="control-label">Authenticator:</label></dt>
             <dd><select ng-model="authenticator" ng-disabled="authenticators.length==1" ng-options="authenticator.name for authenticator in authenticators"></select></dd>
         </dl>
         <div ng-switch on="authenticator.name">
@@ -66,10 +66,9 @@ The Authenticator - Certificate
             </div>
             <div ng-switch-default>
                 <dl>
-                    <dt><label for="otp">One Time Password:</label></dt>
-                    <div class="NFTextCenter">
-                    <dd><input type="text" ng-model="authstep.otp" class="NFText" placeholder="Enter OTP here" name="otp" id="otp" size="32" maxlength="128" /></dd>
-                    </div>
+                    <dt><label class="control-label" >One Time Password:</label></dt>
+                    <dd><input type="text" ng-model="credentials[currentstep]" placeholder="Enter OTP here" name="otp" id="otp" /></dd>
+
                 </dl>
             </div>
         </div>
@@ -77,13 +76,13 @@ The Authenticator - Certificate
 
     <br>
 
-<!--
-    <pre>list={{list}}</pre>
--->
+
+    <pre>credentials={{credentials}}</pre>
+
     </fieldset>
 
     <fieldset class="action">
-        <input type="submit" name="submit" id="submit" value="{{submitText}}" class="NFButton"/>
+        <input type="submit" name="submit" id="submit" value="{{submitText}}" class="btn btn-primary"/>
     </fieldset>
 
 </form>
