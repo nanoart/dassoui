@@ -28,35 +28,63 @@ The Authenticator - Certificate
 <br>
 -->
 <div id="container">
-<form class="niceform" ng-submit="submit()" ng-controller="AuthWizardCtrl">
+<form class="form-horizontal" ng-submit="submit()" ng-controller="AuthWizardCtrl">
 
 	<div ng-repeat="authenticators in logonsteps">
      
 		<fieldset>
 
         <legend>Step  {{ $index + 1 }} </legend>
+		
+		<div ng-show="$index==0">
+          <div class="form-group">  
+            <label class="col-sm-2 control-label">Username:</label>  
+            <div class="col-sm-10">  
+				<input type="text" ng-model="username" name="username" id="username" />
+             </div>  
+          </div>  
+		</div>
+		
         <div>
-            <dl>
-            <dt><label class="control-label">Authenticator:</label></dt>
-                <dd><select ng-model="logonsteps[$index][0]" ng-disabled="authenticators.length==1" ng-options="authenticator.name for authenticator in authenticators"></select></dd>
-            </dl>
-            <div ng-switch on="authenticator.name">
-                <div ng-switch-when="Certificate">
-                    <ds-channels-list></ds-channels-list>
-                </div>
+            <div class="form-group">
+				<label class="col-sm-2 control-label">Authenticator:</label>
+				<div class="col-sm-10">
+                <select ng-model="selectedauthenticators[$index]" ng-disabled="authenticators.length==1" ng-options="authenticator.name for authenticator in authenticators"></select>
+				</div>
+            </div>
+            <div ng-switch on="selectedauthenticators[$index].name">
+				<div ng-switch-when="Certificate" ng-controller="CertificateCtrl">
+					<ds-cert-auth></ds-cert-auth>
+				</div>
+				<div ng-switch-when="Flash Pass" ng-controller="FlashPassCtrl">
+					<ds-flash-pass></ds-flash-pass>
+				</div>
+				<div ng-switch-when="Grid Screen" ng-controller="GridScreenCtrl">
+					<ds-grid-screen></ds-grid-screen>
+				</div>
+				<div ng-switch-when="On Demand Password">
+					<ds-channels-list></ds-channels-list>
+				</div>
+				
+				
+				
                 <div ng-switch-default>
-                    <dl>
-                        <dt><label class="control-label">One Time Password:</label></dt>
-                            <dd><input type="text" ng-model="credentials[$index]" placeholder="Enter OTP here" name="otp" id="otp" size="32" maxlength="128" /></dd>
-                    </dl>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">One Time Password:</label>
+						<div class="col-sm-10">
+                            <input type="text" ng-model="credentials[$index]" placeholder="Enter OTP here" name="otp" id="otp" size="32" maxlength="128" />
+						</div>	
+                    </div>
                 </div>
             </div>
         </div>
 
         </fieldset>
     </div>
-
-    <pre>credentials={{credentials}}</pre>
+	
+	<fieldset>
+		<h3>credentials={{credentials}}</h3>
+	</fieldset>
 	
     <fieldset class="action">
         <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-primary"/>

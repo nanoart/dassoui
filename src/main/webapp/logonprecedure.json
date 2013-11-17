@@ -17,7 +17,11 @@
 	"code": 4
 },
 {
-	"name": "Fingerprint",
+	"name": "Flash Pass",
 	"code": 5
+},
+{
+	"name": "Grid Screen",
+	"code": 6
 }]
 ]

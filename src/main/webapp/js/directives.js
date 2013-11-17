@@ -92,6 +92,13 @@ function AuthWizardCtrl($scope,$http) {
 	$scope.declareCredentials = function() {
 		//will be using the credentials collected and sent back to server
 		$scope.credentials = new Array($scope.logonsteps.length);
+		
+		$scope.selectedauthenticators = new Array($scope.logonsteps.length);
+		for(var i = 0; i < $scope.logonsteps.length; i++)
+		{
+			$scope.selectedauthenticators[i] = $scope.logonsteps[i][0];
+		}
+		
 	}
 
     $scope.fetchLogonPrecedure = function() {
