@@ -85,6 +85,7 @@ function AuthWizardCtrl($scope,$http) {
     "use strict";
     $scope.currentstep = 0;
     $scope.submitText = 'Continue';
+    $scope.username = '';
 
     $scope.url = 'logonprecedure.json';
     $scope.authenticators = [];
