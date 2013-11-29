@@ -1,5 +1,7 @@
 {
  "STEP": "Step",
  "USERNAME": "Username",
+ "CONTINUE": "Continue",
+ "FINISH": "Finish",
  "AUTHENTICATOR": "Authenticator"
 }

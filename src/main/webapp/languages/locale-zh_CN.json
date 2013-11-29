@@ -1,5 +1,7 @@
 {
  "STEP": "步骤",
  "USERNAME": "用户名",
+ "CONTINUE": "继续",
+ "FINISH": "完成",
  "AUTHENTICATOR": "认证手段"
 }

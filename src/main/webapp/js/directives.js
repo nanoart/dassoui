@@ -104,10 +104,10 @@ ssoModule.config(function($routeProvider, $locationProvider) {
 
 
 
-function AuthWizardCtrl($scope,$http) {
+function AuthWizardCtrl($scope,$http, $translate) {
     "use strict";
     $scope.currentstep = 0;
-    $scope.submitText = 'Continue';
+    $scope.submitText = $translate('CONTINUE');
     $scope.username = '';
 
     $scope.url = 'logonprecedure.json';
@@ -151,7 +151,7 @@ function AuthWizardCtrl($scope,$http) {
 
         if($scope.currentstep == $scope.logonsteps.length-1)
         {
-            $scope.submitText = 'Finish';
+            $scope.submitText = $translate('FINISH');
         }
         this.list = [];
         $.each(this.authsteps,function(index, value)
