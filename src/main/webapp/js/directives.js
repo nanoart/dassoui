@@ -1,4 +1,4 @@
-var ssoModule = angular.module('ssoApp', ['ngRoute']);
+var ssoModule = angular.module('ssoApp', ['ngRoute','pascalprecht.translate']);
 
 
 function MainCntl($scope, $route, $routeParams, $location) {
@@ -53,6 +53,29 @@ function CertificateCtrl($scope,$http) {
     $scope.browseruseragent = navigator.userAgent;
 
 };
+
+/*
+ Windows Locale Codes - Sortable list
+ http://www.science.co.il/Language/Locale-codes.asp
+ de_DE, en_US, zh_CN
+*/
+
+ssoModule.config(function ($translateProvider) {
+
+    $translateProvider.useStaticFilesLoader({
+        prefix: '/languages/locale-',
+        suffix: '.json'
+    });
+    $translateProvider.uses('zh_CN');
+
+});
+
+ssoModule.controller('TranslateCtrl', ['$scope', '$translate', function ($scope, $translate) {
+
+    $scope.switchLanguage = function (key) {
+        $translate.uses(key);
+    };
+}]);
 
 
 ssoModule.config(function($routeProvider, $locationProvider) {
