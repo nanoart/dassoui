@@ -37,12 +37,24 @@
 <h4>Client Template Attempt for DualShield SSO</h4>
 
 <div ng-controller="MainCntl">
-    Choose:
-    <a href="allinone">All in one</a> |
-    <a href="wizard">Multiple Pages(Step/Page)</a><br/>
+
+    <ul class="nav nav-pills">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="allinone">All in one</a></li>
+        <li><a href="wizard">Multiple Pages(Step/Page)</a></li>
+        <li class="dropdown pull-right">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Languages<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="javascript:void(0)" onclick="changeLanguage('en-US');">English</a></li>
+                <li><a href="javascript:void(0)" onclick="changeLanguage('de-DE');">German</a></li>
+                <li class="divider"></li>
+                <li><a href="javascript:void(0)" onclick="changeLanguage('ch-ZH);">Chinese</a></li>
+            </ul>
+        </li>
+    </ul>
+
 
     <div ng-view></div>
-    <hr />
 
 </div>
 
