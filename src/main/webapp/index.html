@@ -34,7 +34,17 @@
 </head>
 <body ng-controller="TranslateCtrl">
 
-<h4>Client Template Attempt for DualShield SSO</h4>
+<div class="page-header">
+  <h1>Client Template Attempt for DualShield SSO</h1>
+</div>
+
+<div class="btn-group">
+  <button type="button" class="btn btn-default" ng-click="switchLanguage('en_US');" >English</button>
+  <button type="button" class="btn btn-default" ng-click="switchLanguage('de_DE');" >German</button>
+  <button type="button" class="btn btn-default" ng-click="switchLanguage('zh_CN');" >Chinese</button>
+</div>
+
+<br>
 
 <div ng-controller="MainCntl">
 
@@ -42,18 +52,9 @@
         <li class="active"><a href="#">Home</a></li>
         <li><a href="allinone">All in one</a></li>
         <li><a href="wizard">Multiple Pages(Step/Page)</a></li>
-        <li class="dropdown pull-right">
-            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Languages<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-                <li><a href="javascript:void(0)" onclick="changeLanguage('en-US');">English</a></li>
-                <li><a href="javascript:void(0)" onclick="changeLanguage('de-DE');">German</a></li>
-                <li class="divider"></li>
-                <li><a href="javascript:void(0)" onclick="changeLanguage('ch-ZH);">Chinese</a></li>
-            </ul>
-        </li>
     </ul>
 
-
+	<br>
     <div ng-view></div>
 
 </div>
@@ -90,46 +91,7 @@ The Authenticator - Certificate
     <ds-cert-auth></ds-cert-auth>
 </div>
 
-
-
-
-
-
-<br>
-
-<form class="well" ng-submit="submit()" ng-controller="AuthStepsCtrl">
-    <input type="submit" id="submit" value="Submit" class="btn"/> <br>
-
-    <div class="form-group row" ng-repeat="authstep in authsteps">
-        {{ authstep.name }}. {{ authstep.serial }} <br>
-
-        <div ng-controller="AuthenticatorsHTTPCtrl">
-            Authenticator:
-            <select ng-model="authenticator" ng-options="authenticator.name for authenticator in authenticators"></select>
-            <div ng-switch on="authenticator.name">
-                <div ng-switch-when="Certificate">
-                    <ds-channels-list></ds-channels-list>
-                </div>
-                <div ng-switch-default>One Time Password:<input type="text" ng-model="authstep.otp" placeholder="Enter OTP here"></div>
-            </div>
-        </div>
-
-        <br>
-    </div>
-
-    <pre>list={{list}}</pre>
-</form>
-
 -->
-<!--
-<div ng-view></div>
-
-<!-- In production use:
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
--->
-
-
-
 
 </body>
 </html>

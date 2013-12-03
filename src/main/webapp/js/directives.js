@@ -7,13 +7,13 @@ function MainCntl($scope, $route, $routeParams, $location) {
     $scope.$routeParams = $routeParams;
 }
 
-function BookCntl($scope, $routeParams) {
-    $scope.name = "BookCntl";
+function AllInOneCntl($scope, $routeParams) {
+    $scope.name = "AllInOneCntl";
     $scope.params = $routeParams;
 }
 
-function ChapterCntl($scope, $routeParams) {
-    $scope.name = "ChapterCntl";
+function WizardCntl($scope, $routeParams) {
+    $scope.name = "WizardCntl";
     $scope.params = $routeParams;
 }
 
@@ -66,7 +66,7 @@ ssoModule.config(function ($translateProvider) {
         prefix: '/languages/locale-',
         suffix: '.json'
     });
-    $translateProvider.uses('zh_CN');
+    $translateProvider.uses('en_US');
 
 });
 
@@ -81,7 +81,7 @@ ssoModule.controller('TranslateCtrl', ['$scope', '$translate', function ($scope,
 ssoModule.config(function($routeProvider, $locationProvider) {
     $routeProvider.when('/allinone', {
         templateUrl: 'allinone.html',
-        controller: BookCntl
+        controller: AllInOneCntl
 /*
         resolve: {
             // I will cause a 1 second delay
@@ -95,7 +95,7 @@ ssoModule.config(function($routeProvider, $locationProvider) {
     });
     $routeProvider.when('/wizard', {
         templateUrl: 'wizard.html',
-        controller: ChapterCntl
+        controller: WizardCntl
     });
 
     // configure html5 to get links working on jsfiddle
@@ -104,7 +104,7 @@ ssoModule.config(function($routeProvider, $locationProvider) {
 
 
 
-function AuthWizardCtrl($scope,$http, $translate) {
+function AuthSameCtrl($scope,$http, $translate) {
     "use strict";
     $scope.currentstep = 0;
     $scope.submitText = $translate('CONTINUE');
